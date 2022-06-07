@@ -7,8 +7,13 @@ import { AiOutlinePlus } from 'react-icons/ai';
 const App = () => {
   const appContext = useAppContext();
   React.useEffect(() => {
-    const todos = JSON.parse(localStorage.getItem('todos') || '') || [];
-    appContext?.setTodoList(todos);
+    const todos = localStorage.getItem('todos');
+    if (typeof todos === 'string' && todos !== '') {
+      const parse = JSON.parse(todos); // ok
+      appContext?.setTodoList(parse);
+      return;
+    }
+    appContext?.setTodoList([]);
   }, []);
 
   React.useEffect(() => {

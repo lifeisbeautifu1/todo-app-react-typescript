@@ -1,26 +1,36 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Header, Modal, Todo } from './components';
+import { useAppContext } from './context';
+import { AiOutlinePlus } from 'react-icons/ai';
+// import { ITodo } from './interfaces';
 
-function App() {
+const App = () => {
+  const appContext = useAppContext();
+  React.useEffect(() => {
+    const todos = JSON.parse(localStorage.getItem('todos') || '') || [];
+    appContext?.setTodoList(todos);
+  }, []);
+
+  React.useEffect(() => {
+    localStorage.setItem('todos', JSON.stringify(appContext?.todoList));
+  }, [appContext?.todoList]);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app">
+      <Header />
+      {appContext?.isModalOpen ? <Modal /> : null}
+      <div className="todos-wrapper">
+        {appContext?.todoList.map((todo, index) => {
+          return <Todo key={index} todo={todo} />;
+        })}
+      </div>
+      <button
+        className="open-modal"
+        onClick={() => appContext?.setIsModalOpen(true)}
+      >
+        <AiOutlinePlus className="open-modal-plus" />
+      </button>
     </div>
   );
-}
+};
 
 export default App;

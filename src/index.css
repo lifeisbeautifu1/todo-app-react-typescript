@@ -1,13 +1,215 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&display=swap');
+
+body, html, #root {
+    width: 100%;
+    height: 100%;
+    font-family: 'Open Sans', sans-serif;
+    line-height: 1.5;
+    letter-spacing: 1px;
+    background: #f2f2f2;
+}
+
+.app {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    justify-content: space-between;
+    gap: 30px;
+}
+
+.open-modal {
+    background: none;
+    border: none;
+    background: 
+#7dd3fc;
+    color: #fff;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    font-size: 1.5rem;
+    font-weight: 400;
+    cursor: pointer;
+    margin-bottom: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.open-modal:hover {
+    opacity: 0.9;
+}
+
+header {
+    font-family: 'Caveat';
+    color: #7dd3fc;
+    height: 100px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.75rem;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.15);
+}
+
+.modal-wrapper {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-body {
+    width: 400px;
+    height: 200px;
+    background: #fff;
+    border-radius: 5px;
+    padding: 20px;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.15);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 20px;
+    position: relative;
+}
+
+.add-btn {
+    font-family: 'Open Sans';
+    border: none;
+    background: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-family: 1rem;
+    letter-spacing: 1px;
+    cursor: pointer;
+    background: 
+#4ade80;
+    color: #fff;
+    width: 50%;
+}
+
+.modal-body input {
+    padding: 10px 5px;
+    border: none;
+    background: #f4f4f4;
+    outline: none;
+    font-size: 1rem;
+    width: 100%;
+    border-radius: 5px;
+}
+
+.close-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    border: none;
+    background: none;
+    font-size: 1rem;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #f3f3f3;
+}
+
+.close-btn:hover {
+    background: #ccc;
+}
+
+.todos-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.todo {
+    padding: 10px 25px;
+    letter-spacing: 0px;
+    width: 500px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    border-radius: 50px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.todo.completed {
+    background: #f6f6f6;
+}
+
+.todo.completed h2 {
+    text-decoration: line-through;
+    color: #ccc;
+    
+}
+
+.todo h2 {
+    font-size: 1rem;
+    text-transform: capitalize;
+    color: #444;
+     text-overflow:ellipsis;
+     overflow: hidden;
+     width: 80%;
+}
+
+.todo.completed .complete-btn {
+    background: #86efac;
+    border: none;
+}
+
+.buttons-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.checkmark {
+    font-size: 1rem;
+}
+
+.complete-btn {
+    width: 30px;
+    height: 30px;
+    background: #f4f4f4;
+    border: 1px solid #ccc;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.delete-btn {
+    width: 30px;
+    height: 30px;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    color: #fff;
+    background: #f43f5e;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.todo .checkmark {
+    display: none;
+}
+
+.todo.completed .checkmark {
+    display: inline;
 }

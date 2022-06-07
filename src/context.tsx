@@ -23,6 +23,19 @@ const AppContextProvider = ({ children }: Props) => {
   const [task, setTask] = React.useState<string>('');
   const [todoList, setTodoList] = React.useState<ITodo[]>([]);
 
+  React.useEffect(() => {
+    const todos = localStorage.getItem('todos');
+    if (typeof todos === 'string' && todos !== '') {
+      const parse = JSON.parse(todos); // ok
+      setTodoList(parse);
+      return;
+    }
+    setTodoList([]);
+  }, []);
+  React.useEffect(() => {
+    localStorage.setItem('todos', JSON.stringify(todoList));
+  }, [todoList]);
+
   const completeTodo = (id: number): void => {
     const newArray: ITodo[] = todoList.map((todo) => {
       if (todo.id === id) {

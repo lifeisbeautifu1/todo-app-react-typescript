@@ -4,17 +4,19 @@ import { ITodo } from '../interfaces';
 
 const Modal = () => {
   const appContext = useAppContext();
+  if (!appContext) return null;
+  const { setTask, task, todoList, setTodoList, setIsModalOpen } = appContext;
   const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
-    appContext?.setTask(event.target.value);
+    setTask(event.target.value);
   };
   const handleSubmit = () => {
     const newTodo: ITodo = {
-      task: appContext?.task,
+      task,
       complete: false,
       id: new Date().getTime(),
     };
-    appContext?.setTodoList([newTodo, ...appContext.todoList]);
-    appContext?.setTask('');
+    setTodoList([newTodo, ...todoList]);
+    setTask('');
   };
   return (
     <div className="modal-wrapper">
@@ -22,16 +24,13 @@ const Modal = () => {
         <input
           type="text"
           placeholder="Enter task..."
-          value={appContext?.task}
+          value={task}
           onChange={handleChange}
         />
         <button className="add-btn" onClick={handleSubmit}>
           Add Task
         </button>
-        <button
-          className="close-btn"
-          onClick={() => appContext?.setIsModalOpen(false)}
-        >
+        <button className="close-btn" onClick={() => setIsModalOpen(false)}>
           X
         </button>
       </div>

@@ -6,32 +6,20 @@ import { AiOutlinePlus } from 'react-icons/ai';
 
 const App = () => {
   const appContext = useAppContext();
-  React.useEffect(() => {
-    const todos = localStorage.getItem('todos');
-    if (typeof todos === 'string' && todos !== '') {
-      const parse = JSON.parse(todos); // ok
-      appContext?.setTodoList(parse);
-      return;
-    }
-    appContext?.setTodoList([]);
-  }, []);
 
-  React.useEffect(() => {
-    localStorage.setItem('todos', JSON.stringify(appContext?.todoList));
-  }, [appContext?.todoList]);
+  if (!appContext) return null;
+  const { todoList, isModalOpen, setIsModalOpen } = appContext;
+
   return (
     <div className="app">
       <Header />
-      {appContext?.isModalOpen ? <Modal /> : null}
+      {isModalOpen ? <Modal /> : null}
       <div className="todos-wrapper">
-        {appContext?.todoList.map((todo, index) => {
+        {todoList.map((todo, index) => {
           return <Todo key={index} todo={todo} />;
         })}
       </div>
-      <button
-        className="open-modal"
-        onClick={() => appContext?.setIsModalOpen(true)}
-      >
+      <button className="open-modal" onClick={() => setIsModalOpen(true)}>
         <AiOutlinePlus className="open-modal-plus" />
       </button>
     </div>

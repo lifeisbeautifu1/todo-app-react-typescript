@@ -10,21 +10,17 @@ interface Props {
 
 const Todo: React.FC<Props> = ({ todo }) => {
   const appContext = useAppContext();
+  if (!appContext) return null;
+  const { completeTodo, deleteTodo } = appContext;
   return (
     <div className={`todo ${todo.complete ? 'completed' : ''}`}>
       <h2>{todo.task}</h2>
       <div className="buttons-wrapper">
-        <button
-          className="complete-btn"
-          onClick={() => appContext?.completeTodo(todo.id)}
-        >
+        <button className="complete-btn" onClick={() => completeTodo(todo.id)}>
           <FcCheckmark className="checkmark" />
         </button>
         {todo.complete ? (
-          <button
-            className="delete-btn"
-            onClick={() => appContext?.deleteTodo(todo.id)}
-          >
+          <button className="delete-btn" onClick={() => deleteTodo(todo.id)}>
             <FaTimes className="times" />
           </button>
         ) : null}

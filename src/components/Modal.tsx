@@ -5,7 +5,7 @@ import { ITodo } from '../interfaces';
 const Modal = () => {
   const appContext = useAppContext();
   if (!appContext) return null;
-  const { setTask, task, todoList, setTodoList, setIsModalOpen } = appContext;
+  const { setTask, task, setIsModalOpen, dispatch } = appContext;
   const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
     setTask(event.target.value);
   };
@@ -15,7 +15,7 @@ const Modal = () => {
       complete: false,
       id: new Date().getTime(),
     };
-    setTodoList([newTodo, ...todoList]);
+    dispatch({ type: 'ADD', todo: newTodo });
     setTask('');
   };
   return (
